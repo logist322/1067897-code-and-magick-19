@@ -1,4 +1,4 @@
-'use strick';
+'use strict';
 
 var userName = document.querySelector('.setup');
 var showPopup = function () {
@@ -22,7 +22,7 @@ var createHeroesInfo = function () {
     currentHero.eyesColor = eyesColors[Math.round(Math.random() * (eyesColors.length - 1))];
 
     heroesInfo[i] = currentHero;
-  };
+  }
 };
 
 var renderHeroes = function (info) {
@@ -37,10 +37,8 @@ var renderHeroes = function (info) {
     currentHeroBlank.querySelector('.wizard-coat').style.fill = info[i].coatColor;
     currentHeroBlank.querySelector('.wizard-eyes').style.fill = info[i].eyesColor;
 
-    console.log(currentHeroBlank);
-
     fragment.appendChild(currentHeroBlank);
-  };
+  }
 
   document.querySelector('.setup-similar-list').appendChild(fragment);
   document.querySelector('.setup-similar').classList.remove('hidden');
