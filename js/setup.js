@@ -5,21 +5,24 @@ var showPopup = function () {
   userName.classList.remove('hidden');
 };
 
-var heroName = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-var heroSurname = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
+var heroNames = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
+var heroSurnames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
 
+var takeRandomElement = function (array) {
+  return array[Math.round(Math.random() * (array.length - 1))];
+};
 
-var heroesNumber = 4;
+var HEROES_NUMBER = 4;
 var heroesInfo = [];
 
 var createHeroesInfo = function () {
-  for (var i = 0; i < heroesNumber; i++) {
+  for (var i = 0; i < HEROES_NUMBER; i++) {
     var currentHero = {};
-    currentHero.name = heroName[Math.round(Math.random() * (heroName.length - 1))] + ' ' + heroSurname[Math.round(Math.random() * (heroSurname.length - 1))];
-    currentHero.coatColor = coatColors[Math.round(Math.random() * (coatColors.length - 1))];
-    currentHero.eyesColor = eyesColors[Math.round(Math.random() * (eyesColors.length - 1))];
+    currentHero.name = takeRandomElement(heroNames) + ' ' + takeRandomElement(heroSurnames);
+    currentHero.coatColor = takeRandomElement(coatColors);
+    currentHero.eyesColor = takeRandomElement(eyesColors);
 
     heroesInfo[i] = currentHero;
   }
