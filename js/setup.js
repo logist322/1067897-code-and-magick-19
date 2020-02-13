@@ -76,7 +76,7 @@ var rollColors = function (colors, element, property, input) {
   element.style[property] = lastColor;
   input.value = lastColor;
   colors.unshift(lastColor);
-}
+};
 
 var addHandlers = function () {
   setupCloseButtonElement.addEventListener('click', hidePopupHandler);
@@ -90,7 +90,8 @@ var addHandlers = function () {
 };
 
 var removeHandlers = function () {
-  setupCloseButtonElement.removeEventListener('click', hidePopupHandler);setupCloseButtonElement.removeEventListener('keydown', hidePopupEnterHandler);
+  setupCloseButtonElement.removeEventListener('click', hidePopupHandler);
+  setupCloseButtonElement.removeEventListener('keydown', hidePopupEnterHandler);
   document.removeEventListener('keydown', hidePopupEscHandler);
   usernameInputElement.removeEventListener('keydown', stopPropagationInputHandler);
   setupSubmitElement.removeEventListener('click', submitFormHadler);
@@ -112,7 +113,8 @@ var showPopupEnterHandler = function (evt) {
 };
 
 var hidePopupHandler = function () {
-  hidePopup();removeHandlers
+  hidePopup();
+  removeHandlers();
 };
 
 var hidePopupEscHandler = function (evt) {
