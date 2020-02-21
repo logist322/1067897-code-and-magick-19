@@ -112,17 +112,28 @@
   var hidePopupHandler = function () {
     hidePopup();
     removeHandlers();
+
+    userNameElement.style.top = '80px';
+    userNameElement.style.left = '50%';
   };
 
   var hidePopupEscHandler = function (evt) {
     if (evt.key === ESCAPE_KEY) {
       hidePopup();
+      removeHandlers();
+
+      userNameElement.style.top = '80px';
+      userNameElement.style.left = '50%';
     }
   };
 
   var hidePopupEnterHandler = function (evt) {
     if (evt.key === ENTER_KEY) {
       hidePopup();
+      removeHandlers();
+
+      userNameElement.style.top = '80px';
+      userNameElement.style.left = '50%';
     }
   };
 
