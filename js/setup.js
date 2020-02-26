@@ -20,24 +20,24 @@
   var champFireballElement = champElement.querySelector('.setup-fireball');
   var champFireballInputElement = champElement.querySelector('input[name="fireball-color"]');
 
-  var namesHero = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-  var surnamesHero = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
+  // var namesHero = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
+  // var surnamesHero = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
   var coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
   var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
   var fireballColors = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
   var heroesInfo = [];
 
-  var createHeroesInfo = function () {
-    for (var i = 0; i < HERO_COUNT; i++) {
-      var currentHero = {};
+  // var createHeroesInfo = function () {
+  //   for (var i = 0; i < HERO_COUNT; i++) {
+  //     var currentHero = {};
 
-      currentHero.name = window.utilits.getRandomElement(namesHero) + ' ' + window.utilits.getRandomElement(surnamesHero);
-      currentHero.coatColor = window.utilits.getRandomElement(coatColors);
-      currentHero.eyesColor = window.utilits.getRandomElement(eyesColors);
+  //     currentHero.name = window.utilits.getRandomElement(namesHero) + ' ' + window.utilits.getRandomElement(surnamesHero);
+  //     currentHero.coatColor = window.utilits.getRandomElement(coatColors);
+  //     currentHero.eyesColor = window.utilits.getRandomElement(eyesColors);
 
-      heroesInfo[i] = currentHero;
-    }
-  };
+  //     heroesInfo[i] = currentHero;
+  //   }
+  // };
 
   var renderHeroes = function (info) {
     var heroBlankElement = document.querySelector('#similar-wizard-template')
@@ -45,12 +45,12 @@
       .querySelector('.setup-similar-item');
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < heroesInfo.length; i++) {
+    for (var i = 0; i < HERO_COUNT; i++) {
       var currentHeroBlankElement = heroBlankElement.cloneNode(true);
 
       currentHeroBlankElement.querySelector('.setup-similar-label').textContent = info[i].name;
-      currentHeroBlankElement.querySelector('.wizard-coat').style.fill = info[i].coatColor;
-      currentHeroBlankElement.querySelector('.wizard-eyes').style.fill = info[i].eyesColor;
+      currentHeroBlankElement.querySelector('.wizard-coat').style.fill = info[i].colorCoat;
+      currentHeroBlankElement.querySelector('.wizard-eyes').style.fill = info[i].colorEyes;
 
       fragment.appendChild(currentHeroBlankElement);
     }
@@ -141,8 +141,30 @@
     evt.stopPropagation();
   };
 
-  var submitFormHadler = function () {
-    userFormElement.submit();
+  var saveSuccsessHandler = function () {
+    hidePopup();
+    removeHandlers();
+
+    userNameElement.style.top = '80px';
+    userNameElement.style.left = '50%';
+  };
+
+  var saveErrorHandler = function (response) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = response;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
+  var submitFormHadler = function (evt) {
+    window.backend.save(new FormData(userFormElement), saveSuccsessHandler, saveErrorHandler);
+
+    evt.preventDefault();
   };
 
   var rollCoatColorHandler = function () {
@@ -160,6 +182,23 @@
   setupOpenButtonElement.addEventListener('click', showPopupHandler);
   setupOpenImageElement.addEventListener('keydown', showPopupEnterHandler);
 
-  createHeroesInfo();
-  renderHeroes(heroesInfo);
+
+  var loadSuccessHandler = function (infoserv) {
+    heroesInfo = infoserv;
+    renderHeroes(heroesInfo);
+  };
+
+  var loadErrorHandler = function () {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = 'Error';
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+  // createHeroesInfo();
+  window.backend.load(loadSuccessHandler, loadErrorHandler);
 })();
