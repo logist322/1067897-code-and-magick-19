@@ -26,11 +26,11 @@
   var heroesInfo = [];
 
   var getUniqueIndex = function (array) {
-    var index = Math.round( Math.random() * (heroesInfo.length - 1));
+    var index = Math.round(Math.random() * (heroesInfo.length - 1));
 
     for (var j = 0; j < array.length; j++) {
       if (index === array[j]) {
-        getUniqueIndex(array)
+        getUniqueIndex(array);
       }
     }
     array.push(index);
