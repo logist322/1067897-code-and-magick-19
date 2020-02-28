@@ -25,15 +25,22 @@
   var fireballColors = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
   var heroesInfo = [];
 
-  var getUniqueIndex = function (array) {
+  var getUniqueIndex = function (indexArr) {
     var index = Math.round(Math.random() * (heroesInfo.length - 1));
 
-    for (var j = 0; j < array.length; j++) {
-      if (index === array[j]) {
-        getUniqueIndex(array);
+    // for (var j = 0; j < array.length; j++) {
+    //   if (index === array[j]) {
+    //     getUniqueIndex(array);
+    //   }
+    // }
+
+    indexArr.forEach(function (item) {
+      if (index === item) {
+        getUniqueIndex(indexArr);
       }
-    }
-    array.push(index);
+    });
+
+    indexArr.push(index);
     return index;
   };
 
