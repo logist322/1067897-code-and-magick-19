@@ -3,24 +3,10 @@
 (function () {
   var URL_SAVE = 'https://js.dump.academy/code-and-magick';
   var URL_LOAD = 'https://js.dump.academy/code-and-magick/data';
+  var METHOD_SAVE = 'POST';
+  var METHOD_LOAD = 'GET';
 
-  var load = function (onLoad, onError) {
-    var xhr = new XMLHttpRequest();
-
-    xhr.responseType = 'json';
-
-    xhr.addEventListener('load', function () {
-      onLoad(xhr.response);
-    });
-    xhr.addEventListener('error', function () {
-      onError(xhr.response);
-    });
-
-    xhr.open('GET', URL_LOAD);
-    xhr.send();
-  };
-
-  var save = function (data, onSuccess, onError) {
+  var request = function (method, url, onSuccess, onError, data) {
     var xhr = new XMLHttpRequest();
 
     xhr.responseType = 'json';
@@ -32,12 +18,20 @@
       onError(xhr.response);
     });
 
-    xhr.open('POST', URL_SAVE);
+    xhr.open(method, url);
     xhr.send(data);
   };
 
+  var save = function (succsessHandler, errorHandler, data) {
+    request(METHOD_SAVE, URL_SAVE, succsessHandler, errorHandler, data);
+  };
+
+  var load = function (succsessHandler, errorHandler) {
+    request(METHOD_LOAD, URL_LOAD, succsessHandler, errorHandler);
+  };
+
   window.backend = {
-    load: load,
-    save: save
+    save: save,
+    load: load
   };
 })();

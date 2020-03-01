@@ -25,33 +25,22 @@
   var fireballColors = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
   var heroesInfo = [];
 
-  var getUniqueIndex = function (indexArr) {
-    var index = Math.round(Math.random() * (heroesInfo.length - 1));
-
-    indexArr.forEach(function (item) {
-      if (index === item) {
-        getUniqueIndex(indexArr);
-      }
-    });
-
-    indexArr.push(index);
-    return index;
-  };
-
-  var renderHeroes = function (info) {
+  var renderHeroes = function (heroes) {
+    var heroesCopy = heroes.slice();
     var heroBlankElement = document.querySelector('#similar-wizard-template')
       .content
       .querySelector('.setup-similar-item');
     var fragment = document.createDocumentFragment();
-    var takenIndex = [];
 
     for (var i = 0; i < HERO_COUNT; i++) {
-      var currentIndex = getUniqueIndex(takenIndex);
+      var currentIndex = window.utilits.getRandomInt(0, heroesCopy.length - 1);
+      var currentHero = heroesCopy[currentIndex];
+      delete heroesCopy[currentIndex];
       var currentHeroBlankElement = heroBlankElement.cloneNode(true);
 
-      currentHeroBlankElement.querySelector('.setup-similar-label').textContent = info[currentIndex].name;
-      currentHeroBlankElement.querySelector('.wizard-coat').style.fill = info[currentIndex].colorCoat;
-      currentHeroBlankElement.querySelector('.wizard-eyes').style.fill = info[currentIndex].colorEyes;
+      currentHeroBlankElement.querySelector('.setup-similar-label').textContent = currentHero.name;
+      currentHeroBlankElement.querySelector('.wizard-coat').style.fill = currentHero.colorCoat;
+      currentHeroBlankElement.querySelector('.wizard-eyes').style.fill = currentHero.colorEyes;
 
       fragment.appendChild(currentHeroBlankElement);
     }
@@ -157,13 +146,15 @@
     node.style.left = 0;
     node.style.right = 0;
     node.style.fontSize = '30px';
+    node.style.width = '100vw';
+    node.style.height = '50px';
 
-    node.textContent = response;
+    node.textContent = 'oshibka';
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
   var submitFormHadler = function (evt) {
-    window.backend.save(new FormData(userFormElement), saveSuccsessHandler, saveErrorHandler);
+    window.backend.save(saveSuccsessHandler, saveErrorHandler, new FormData(userFormElement));
 
     evt.preventDefault();
   };
@@ -196,6 +187,8 @@
     node.style.left = 0;
     node.style.right = 0;
     node.style.fontSize = '30px';
+    node.style.width = '100vw';
+    node.style.height = '50px';
 
     node.textContent = 'Error';
     document.body.insertAdjacentElement('afterbegin', node);
