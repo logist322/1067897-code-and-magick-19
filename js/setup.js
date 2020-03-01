@@ -28,12 +28,6 @@
   var getUniqueIndex = function (indexArr) {
     var index = Math.round(Math.random() * (heroesInfo.length - 1));
 
-    // for (var j = 0; j < array.length; j++) {
-    //   if (index === array[j]) {
-    //     getUniqueIndex(array);
-    //   }
-    // }
-
     indexArr.forEach(function (item) {
       if (index === item) {
         getUniqueIndex(indexArr);
