@@ -139,7 +139,7 @@
     userNameElement.style.left = '50%';
   };
 
-  var saveErrorHandler = function (response) {
+  var saveErrorHandler = function () {
     var node = document.createElement('div');
     node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
     node.style.position = 'absolute';
