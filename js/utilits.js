@@ -3,11 +3,11 @@
   var getMaxElement = function (arr) {
     var maxElement = arr[0];
 
-    for (var i = 0; i < arr.length; i++) {
-      if (arr[i] > maxElement) {
-        maxElement = arr[i];
+    arr.forEach(function (item) {
+      if (item > maxElement) {
+        maxElement = item;
       }
-    }
+    });
 
     return maxElement;
   };
@@ -23,6 +23,6 @@
   window.utilits = {
     getMaxElement: getMaxElement,
     getRandomElement: getRandomElement,
-    getRandomInt: getRandomInt
+    getRandomInt: getRandomInt,
   };
 })();

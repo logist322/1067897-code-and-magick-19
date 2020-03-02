@@ -26,16 +26,19 @@
   var heroesInfo = [];
 
   var renderHeroes = function (heroes) {
-    var heroesCopy = heroes.slice();
     var heroBlankElement = document.querySelector('#similar-wizard-template')
       .content
       .querySelector('.setup-similar-item');
     var fragment = document.createDocumentFragment();
+    var list = document.querySelector('.setup-similar-list');
+
+    while (list.firstChild) {
+      list.removeChild(list.firstChild);
+    }
+
 
     for (var i = 0; i < HERO_COUNT; i++) {
-      var currentIndex = window.utilits.getRandomInt(0, heroesCopy.length - 1);
-      var currentHero = heroesCopy[currentIndex];
-      delete heroesCopy[currentIndex];
+      var currentHero = heroes[i];
       var currentHeroBlankElement = heroBlankElement.cloneNode(true);
 
       currentHeroBlankElement.querySelector('.setup-similar-label').textContent = currentHero.name;
@@ -45,7 +48,7 @@
       fragment.appendChild(currentHeroBlankElement);
     }
 
-    document.querySelector('.setup-similar-list').appendChild(fragment);
+    list.appendChild(fragment);
     document.querySelector('.setup-similar').classList.remove('hidden');
   };
 
@@ -161,10 +164,12 @@
 
   var rollCoatColorHandler = function () {
     rollColors(coatColors, champCoatElement, 'fill', champCoatInputElement);
+    window.similar.show(heroesInfo);
   };
 
   var rollEyesColorHandler = function () {
     rollColors(eyesColors, champEyesElement, 'fill', champEyesInputElement);
+    window.similar.show(heroesInfo);
   };
 
   var rollFireballColorHandler = function () {
@@ -195,4 +200,8 @@
   };
 
   window.backend.load(loadSuccessHandler, loadErrorHandler);
+
+  window.setup = {
+    renderHeroes: renderHeroes
+  };
 })();
