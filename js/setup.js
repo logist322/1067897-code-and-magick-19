@@ -19,6 +19,7 @@
   var champEyesInputElement = champElement.querySelector('input[name="eyes-color"]');
   var champFireballElement = champElement.querySelector('.setup-fireball');
   var champFireballInputElement = champElement.querySelector('input[name="fireball-color"]');
+  var avatarInput = document.querySelector('.upload input[type=file]');
 
   var coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
   var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
@@ -77,6 +78,7 @@
     champCoatElement.addEventListener('click', rollCoatColorHandler);
     champEyesElement.addEventListener('click', rollEyesColorHandler);
     champFireballElement.addEventListener('click', rollFireballColorHandler);
+    avatarInput.addEventListener('change', window.avatar.changeAvatarHandler);
   };
 
   var removeHandlers = function () {
@@ -88,6 +90,7 @@
     champCoatElement.removeEventListener('click', rollCoatColorHandler);
     champEyesElement.removeEventListener('click', rollEyesColorHandler);
     champFireballElement.removeEventListener('click', rollFireballColorHandler);
+    avatarInput.removeEventListener('change', window.avatar.changeAvatarHandler);
   };
 
   var showPopupHandler = function () {
